@@ -5,7 +5,7 @@ import Burger from "../../Components/Burger/Burger";
 import BuildControls from "../../Components/Burger/BuildControls/BuildControls";
 import Modal from "../../Components/UI/Modal/Modal";
 import OrderSummary from "../../Components/Burger/OrderSummary/OrderSummary";
-//import axios from '../../Components/axios-order';
+import axios from '../../Components/axios-order';
 
 const INGREDIENT_PRICES = {
   salad: 50,
@@ -26,15 +26,15 @@ class BurgerBuilder extends Component {
     purchasable: false,
     purchasing: false
   };
-  // componentDidMount() {
-  //     axios.get('https://burgerbuilder-bb850.firebaseio.com/')
-  //         .then(response => {
-  //             this.setState({ ingredients: response.data });
-  //         })
-  //         .catch(error => {
-  //             this.setState({ error: true });
-  //         });
-  // }
+  componentDidMount() {
+      axios.get('https://burgerbuilder-bb850.firebaseio.com/')
+          .then(response => {
+              this.setState({ ingredients: response.data });
+          })
+          .catch(error => {
+              this.setState({ error: true });
+          });
+  }
   updatePurchaseState(ingredients) {
     const sum = Object.keys(ingredients)
       .map(igKey => {
@@ -82,28 +82,28 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: false });
   }
   purchaseContinuedHandler = () => {
-    alert('you continue');
-  }
+    //alert('you continue');
+  //}
 
-  //     const order = {
-  //         ingredients: this.state.ingredients,
-  //         price: this.state.totalPrice,
-  //         customer: {
-  //             name: "Parul",
-  //             address: {
-  //                 street: 'Teststreet 1',
-  //                 zipCode: '560100',
-  //                 country: 'India'
-  //             },
-  //             email: 'test@test.com'
-  //         },
-  //         deliveryMethod: 'fastest'
-  //     }
-  //     axios.post('/orders.json', order)
-  //         .then(Response => console.log(Response))
-  //         .catch(error => console.log(error));
-  // }
- // }
+      const order = {
+          ingredients: this.state.ingredients,
+          price: this.state.totalPrice,
+          customer: {
+              name: "Parul",
+              address: {
+                  street: 'Teststreet 1',
+                  zipCode: '560100',
+                  country: 'India'
+              },
+              email: 'test@test.com'
+          },
+          deliveryMethod: 'fastest'
+      }
+      axios.post('/orders.json', order)
+          .then(Response => console.log(Response))
+          .catch(error => console.log(error));
+  }
+ 
 
   render() {
     const disabledInfo = {
